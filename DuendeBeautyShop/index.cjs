@@ -56,7 +56,7 @@ app.post('/api/postData', (req,res) => {
 });
 
 
-async function createUserMongo(rol,username,password,email,telephone,codPostal,firstName,middleName,firstSurname,secondSurname/*,birthDate*/,photoUser, cart, orders){
+async function createUser(rol,username,password,email,telephone,codPostal,firstName,middleName,firstSurname,secondSurname/*,birthDate*/,photoUser, cart, orders){
   let photo = null;
   //let birthday = new Date(birthDate);
 
@@ -81,18 +81,105 @@ async function createUserMongo(rol,username,password,email,telephone,codPostal,f
   return user; 
 }
 
-async function createCart(user, items){
+async function updateUser(username,email,telephone,codPostal,firstName,middleName,firstSurname,secondSurname/*,birthDate*/,photoUser){
+    let idPhoto = new mongoDB.ObjectId(photoUser);
+    let result = await conn.collection('users').updateOne({username: username},{$set: {email : email, telephone : telephone,
+         codPostal: codPostal, firstName : firstName, middleName: middleName, firstSurname: firstSurname, secondSurname : secondSurname,
+        photoUser, idPhoto}});
+
+    return result; 
+}
+
+async function updatePassword(username,password){
+    let result = await conn.collection('users').updateOne({username: username},{$set: {password: password}});
+    return result;
+}
+
+async function deleteUser(username){
+    let result = await conn.collection('users').deleteOne({username: username});
+    return result;
+}
+
+
+async function createCart(user){
 
     let userId = new mongoDB.ObjectId(user);
 
-    let order = await conn.collection('carts').insertOne(
+    let cart = await conn.collection('carts').insertOne(
         {
             user : userId,
-            items: items
+            items: []
         }
     )
-    return order; 
+
+    return cart;
 }
+
+async function getCart(user){
+    let userId = new mongoDB.ObjectId(user);
+
+    let cart = await conn.collection('carts').find({_id: userId})
+
+    return cart.toArray()[0];
+}
+
+//createCart("652d968a89d8331c6d57936d");
+
+async function addProductCart(user, product) {
+    let userId = new mongoDB.ObjectId(user);
+    let productId = new mongoDB.ObjectId(product);
+
+    let consult = await conn.collection('carts').find({user:userId})
+    let response = await consult.toArray();
+    let temp = [];
+    temp = response[0].items;
+    temp.push(productId);
+
+    console.log(temp);
+    await conn.collection('carts').deleteOne({user:userId});
+
+    consult = await conn.collection('carts').insertOne(
+        {
+            user : userId,
+            items : temp
+        }
+    )
+
+    return consult;
+}
+
+async function removeProductCart(user, index) {
+    let userId = new mongoDB.ObjectId(user);
+
+    let consult = await conn.collection('carts').find({user:userId})
+    let response = await consult.toArray();
+    let temp = [];
+    temp = response[0].items;
+
+    let res = [];
+    for (let i = 0; i < temp.length; i++ ){
+        if(i + 1 != index){
+            res.push(temp[i]);
+        }    
+    }
+
+    console.log(res);
+    await conn.collection('carts').deleteOne({user:userId});
+
+    consult = await conn.collection('carts').insertOne(
+        {
+            user : userId,
+            items : res
+        }
+    )
+
+    return consult;
+}
+
+//addProductCart("652d968a89d8331c6d57936d", "652d968a89d8331c6d57936d");
+//removeProductCart("652d968a89d8331c6d57936d", 1);
+
+
 
 /*
     let itemIds = [];
@@ -104,24 +191,59 @@ async function createCart(user, items){
 //createCart("652d968a89d8331c6d57936d", null);
 
 async function createUserOrder(user,items, orderDate, deliveryDate, stateOrder, address, voucher, detail, totalPrice){
+    let userId = new mongoDB.ObjectId(user);
+    let voucherId = new mongoDB.ObjectId(voucher);
+    let addressId = new mongoDB.ObjectId(address);
 
-  let order = await conn.collection('orders').insertOne(
-      {
-          user : user,
-          items: items,
-          orderDate : orderDate,
-          deliveryDate: deliveryDate,
-          stateOrder: stateOrder,
-          address : address,
-          voucher: voucher,
-          totalPrice : totalPrice,
-          detail : detail
-      }
-  )
-  return order; 
+    let itemIds = [];
+    for(let i =0;i < items.length;i++){
+        itemIds.push(new mongoDB.ObjectId(items[i]));
+    }
+    let order = await conn.collection('orders').insertOne(
+        {
+            user : userId,
+            items: itemIds,
+            orderDate : orderDate,
+            deliveryDate: deliveryDate,
+            stateOrder: stateOrder,
+            address : addressId,
+            voucher: voucherId,
+            totalPrice : totalPrice,
+            detail : detail
+        }
+    )
+    return order; 
 }
 
-//createUserOrder("652d968a89d8331c6d57936d")
+//createUserOrder("652d968a89d8331c6d57936d", ["652d968a89d8331c6d57936d","652d968a89d8331c6d57936d"], "21/10/2003", null, "PENDIENTE", "600 oeste del parque nacional", null, "No", "250000");
+
+async function getAllOrders(user){
+    let userId = new mongoDB.ObjectId(userId);
+
+    let consult = await conn.collection('carts').find({user:userId})
+
+    return consult.toArray(); 
+}
+
+async function getOrder(order){
+    let orderId = new mongoDB.ObjectId(order);
+
+    let consult = await conn.collection('carts').find({_id:orderId})
+
+    return consult.toArray()[0]; 
+}
+
+async function updateStateUserOrder(order, newState){
+    let itemIds = [];
+    let orderId = new mongoDB.ObjectId(order);
+
+    let result = await conn.collection('orders').updateOne({_id: orderId},{$set: {stateOrder: newState}});
+
+    return order; 
+}
+
+//updateStateUserOrder("652df104a3faf7d5c9e88728", "EN CAMINO");
+
 
 async function createAddress(country, state, region, city, detail){
 
@@ -137,7 +259,11 @@ async function createAddress(country, state, region, city, detail){
     return address; 
 }
 
+//createAddress("Costa Rica", "San Jose", "Mora", "Colon", "Del hospital 200 metros norte");
+
+//entity: COURSE, PRODUCT, SERVICE
 async function createItem(entity,purchasable, amount, price){
+    //let purchasableID = new mongoDB.ObjectId(purchasable);
 
     let item = await conn.collection('itemsOrders').insertOne(
         {
@@ -150,11 +276,29 @@ async function createItem(entity,purchasable, amount, price){
     return item; 
 }
 
-async function createCourse(dateCourse, minutesDuration, description, materials){
+//createItem("PRODUCT", null,"5", "30000");
+
+async function deleteItem(item){
+    let itemId = new mongoDB.ObjectId(item);
+
+    res = await conn.collection('itemsOrders').deleteOne({_id: itemId})
+    return res; 
+}
+
+
+//deleteItem("652e022f03b37f28252cdce1");
+
+
+async function createCourse(dateCourse,images, minutesDuration, description, materials){
+    let imagesIds = [];
+    for(let i =0;i < images.length;i++){
+        imagesIds.push(new mongoDB.ObjectId(images[i]));
+    }
 
     let course = await conn.collection('courses').insertOne(
         {
             dateCourse : dateCourse,
+            images: imagesIds,
             minutesDuration : minutesDuration,
             description : description,
             materials : materials
@@ -163,26 +307,64 @@ async function createCourse(dateCourse, minutesDuration, description, materials)
     return course; 
 }
 
-async function createMakeupService(status,title,description,images, subcategory){
+async function getCourses(){
+    let res = await conn.collection('courses').find()
+    return res.toArray(); 
+}
 
+
+async function deleteCourse(course){
+    let courseId = new mongoDB.ObjectId(course);
+    let course = await conn.collection('courses').deleteOne({_id : courseId})
+    return course; 
+}
+
+
+async function createMakeupService(status,title,description,images, subcategory){
+    let imagesIds = [];
+    for(let i =0;i < images.length;i++){
+        imagesIds.push(new mongoDB.ObjectId(images[i]));
+    }
     let makeupService = await conn.collection('makeupService').insertOne(
         {
             status: status,
             title : title,
             description: description,
-            images : images,
+            images : imagesIds,
             subcategory : subcategory
         }
     )
     return makeupService; 
 }
 
-async function createProduct(title, description, price, categoryProduct, status, brand){
+async function getAllMakeupServices(){
+    let res = await conn.collection('makeupService').find()
+    return res.toArray(); 
+}
+
+async function getMakeupService(service){
+    serviceId = new mongoDB.ObjectId(service);
+    let res = await conn.collection('makeupService').find({_id:serviceId})
+    return res.toArray()[0]; 
+}
+
+async function deleteMakeupService(service){
+    serviceId = new mongoDB.ObjectId(service);
+    let res = await conn.collection('makeupService').deleteOne({_id : service})
+    return res.toArray(); 
+}
+
+async function createProduct(title, description,images, price, categoryProduct, status, brand){
+    let imagesIds = [];
+    for(let i =0;i < images.length;i++){
+        imagesIds.push(new mongoDB.ObjectId(images[i]));
+    }
 
     let product = await conn.collection('products').insertOne(
         {
             title : title,
             description : description,
+            images, imagesIds,
             price : price,
             category : categoryProduct,
             status : status,
@@ -191,6 +373,25 @@ async function createProduct(title, description, price, categoryProduct, status,
     )
     return product; 
 }
+
+async function getAllProducts(){
+    let res = await conn.collection('products').find()
+    return res.toArray(); 
+}
+
+async function getProduct(product){
+    productId = new mongoDB.ObjectId(product);
+    let res = await conn.collection('products').find({_id:productId})
+    return res.toArray()[0]; 
+}
+
+async function deleteProduct(product){
+    productId = new mongoDB.ObjectId(product);
+    let res = await conn.collection('products').deleteOne({_id : productId})
+    return res.toArray(); 
+}
+
+
 
 async function createCategory(name, subcategoriesGallery, type){
 
@@ -204,6 +405,11 @@ async function createCategory(name, subcategoriesGallery, type){
     return category; 
 }
 
+async function getAllCategoriesForType(type){
+    let categories = await conn.collection('categories').find({type : type})
+    return categories.toArray(); 
+}
+
 async function createSubcategory(name){
 
     let subcategory = await conn.collection('subcategories').insertOne(
@@ -212,6 +418,11 @@ async function createSubcategory(name){
         }
     )
     return subcategory; 
+}
+
+async function getAllSubcategoriesForType(){
+    let subcategories = await conn.collection('subcategories').find({type : type})
+    return subcategories.toArray(); 
 }
 
 //createUserMongo("ADMINISTRADOR","jonat","1234","jonathanporrassandi@gmail.com","86398772", "506", "jonathan","andrey", "porras","sandi","21/10/2003", null,null,null);
