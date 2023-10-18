@@ -1,0 +1,93 @@
+/* Estilo para el contenedor de los filtros */
+.filters {
+  display: flex;
+  flex-wrap: wrap; /* Asegura que los elementos se envuelvan en pantallas más pequeñas */
+  justify-content: center;
+  align-items: center;
+}
+
+.title-container {
+  margin-right: 75%; 
+  margin-top: 35px;
+  color: #642CA9;
+  font-size: 20px;
+  flex: 1; 
+  text-align: center; 
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+}
+
+h2 {
+  padding-left: 5.2%;
+}
+
+/* Estilo para los select (combobox) */
+.filters select,
+.filters .search-input {
+  border: 2px solid #FF36AB;
+  color: #FF36AB;
+  border-radius: 50px;
+  padding: 5px;
+  flex: 1; /* Aprovecha el espacio disponible en la fila */
+  margin: 5px; /* Agrega un espacio entre elementos */
+  margin-top: 10px;
+  max-width: 427.54px;
+}
+
+.filters .search-input {
+  margin-right: 32%;
+  background: url("../img/search-icon.png") no-repeat right;
+  background-size: 20px;
+  background-position-x: 98%;
+}
+
+/* Estilo para el texto dentro de los select */
+.filters select option {
+  color: #FF36AB;
+}
+
+/* Estilo para el texto dentro del input de búsqueda (placeholder) */
+.filters .search-input::placeholder {
+  color: #FF36AB;
+}
+
+/* Media Query para pantallas más pequeñas (por ejemplo, teléfonos) */
+@media screen and (max-width: 879px) {
+  .filters {
+    flex-direction: column; /* Cambia la dirección de flexión para apilar elementos verticalmente */
+  }
+
+  .title-container {
+    text-align: center; /* Centra el título en pantallas pequeñas */
+    margin-right: 0;
+  }
+
+  h2 {
+    margin-left:0;
+  }
+}
+
+/* Media Query para pantallas más pequeñas (por ejemplo, teléfonos) */
+@media screen and (max-width: 1078px) {
+
+  h2 {
+    padding-left:3%;
+  }
+}
+
+/* Estilo para el texto y el botón en pantallas más pequeñas */
+@media screen and (max-width: 879px) {
+  h2 {
+    text-align: center; /* Centra el texto en pantallas pequeñas */
+    font-size: 16px; /* Ajusta el tamaño de fuente para dispositivos móviles */
+    margin-top: 10px; /* Agrega espacio superior */
+  }
+  .filters .search-input {
+    margin-right:0;
+  }
+  /* Estilo para el botón en pantallas más pequeñas */
+  .btns {
+    max-width: 50%; /* Aprovecha el ancho completo del contenedor */
+  }
+}

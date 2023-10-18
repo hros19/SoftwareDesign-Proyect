@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+body{
+	line-height: 1.5;
+	font-family: 'Poppins', sans-serif;
+}
+*{
+	margin:0;
+	padding:0;
+	box-sizing: border-box;
+}
+.container{
+	margin:auto;
+}
+.row{
+	display: flex;
+}
+ul{
+	list-style: none;
+}
+.footer{
+	background-color: #FFB8DE;
+    padding: 70px 0;
+}
+.footer-col {
+    padding: 0 15px;
+    margin: 0 10px; /* Adjust the margin to create more space between columns */
+ }
+.footer-col h4{
+	font-size: 18px;
+	color: #642CA9;
+	text-transform: capitalize;
+	margin-bottom: 35px;
+	font-weight: 500;
+	position: relative;
+}
+.footer-col ul li:not(:last-child){
+	margin-bottom: 10px;
+}
+.footer-col ul li a{
+	font-size: 16px;
+	text-transform: capitalize;
+	color: #642CA9;
+	text-decoration: none;
+	font-weight: 300;
+	color: #642CA9;
+	display: block;
+	transition: all 0.3s ease;
+}
+.footer-col ul li a:hover{
+	color: #ffffff;
+	padding-left: 8px;
+}
+.social-links {
+    display: inline-block; /* Ensure the container is inline-block */
+}
+
+.Title-1{
+	color: #642CA9;
+	font-size: x-large;
+	font-weight: 700;
+	font-style: italic;
+}
+
+.Option-1{
+	font-size: medium;
+	color: #642CA9;
+
+}
+
+
+.social-icon {
+    display: inline-block; /* Set the social icons to inline-block */
+    width: 60px; /* Adjust width as needed */
+    height: 60px; /* Adjust height as needed */
+    background-color: rgba(255, 255, 255, 0.2);
+    margin: 0 10px 10px 0;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 50%;
+    color: #ffffff;
+    transition: all 0.5s ease;
+}
+
+.icon{
+	width: 30px;
+	height: 30px;
+}
+
+r-col .social-links a:hover{
+	color: #24262b;
+	background-color: #ffffff;
+}
+
+/*responsive*/
+@media(max-width: 767px){
+  .footer-col{
+    width: 50%;
+    margin-bottom: 30px;
+}
+}
+@media(max-width: 574px){
+  .footer-col{
+    width: 100%;
+}
+}
+
+
+
+

@@ -1,0 +1,170 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+  }
+  a {
+    text-decoration: none;
+    color: rgb(97, 97, 97);
+  }
+  
+  li {
+    list-style: none;
+  }
+
+  .custom-file-input-label {
+    border: 2px solid #FF36AB;
+    background-color: #FF36AB;
+    color: white;
+    border-radius: 50px;
+    padding: 5px;
+    cursor: pointer;
+    max-width: 427.54px;
+    transition: background-color 0.3s;
+    display: block;
+    text-align: center;
+    width: 150px;
+  }
+  
+  .custom-file-input-label:hover {
+    background-color: #FF1493;
+  }
+  
+  .file-input {
+    display: none;
+  }
+  
+  .custom-image {
+    width: 259px;
+    height: auto;
+  }
+  
+  .container {
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; /* Asegura que los elementos se envuelvan en pantallas más pequeñas */
+    margin-top: 10px;
+    margin-left: 20px;
+  }
+  
+  .image-container {
+    margin-right: 20px; /* Add margin between image and button */
+  }
+  
+  .button-container {
+    display: flex;
+    flex-wrap: wrap; /* Asegura que los elementos se envuelvan en pantallas más pequeñas */
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    justify-content: left;
+    align-items: left;
+
+  }
+
+
+  /* Estilo para los select (combobox) */
+.ml select {
+  border: 2px solid #FF36AB;
+  color: #FF36AB;
+  border-radius: 50px;
+  padding: 5px;
+  flex: 1; /* Aprovecha el espacio disponible en la fila */
+  margin: 5px; /* Agrega un espacio entre elementos */
+  margin-top: 10px;
+  max-width: 427.54px;
+}
+
+.select-specific select {
+  border: 2px solid #FF36AB;
+  color: #FF36AB;
+  border-radius: 50px;
+  padding: 5px;
+  flex: 1; /* Aprovecha el espacio disponible en la fila */
+  margin: 5px; /* Agrega un espacio entre elementos */
+  margin-top: 10px;
+  max-width: 427.54px;
+}
+
+.select-specific .btns {
+  border-radius:0px;
+  font-size: 15px;
+  height:30px;
+  width: 30px;
+  text-align: center;
+  padding: 6px;
+}
+  .text-input {
+    border: 2px solid #E0E0E0;
+    color: #000000;
+    background-color: #D3D3D3; 
+    border-radius: 50px;
+    padding: 5px;
+    flex: 1; /* Aprovecha el espacio disponible en la fila */
+    margin: 5px; /* Agrega un espacio entre elementos */
+    margin-top: 10px;
+    max-width: 200px;
+  }
+  
+  .input-container {
+    display: flex; /* Use flexbox to align titles and input fields */
+    flex-direction: column; /* Stack children vertically */
+    margin-left: 20px;
+    margin-top: 10px;
+  }
+  
+  .input-container h1 {
+    color: #642CA9;
+    font-size: 15px;
+  }
+
+  .title-page {
+    color: #642CA9;
+    margin: 10px;
+  }
+/*Tags*/
+
+.tag-container {
+  display: inline-block;
+  margin: 5px;
+  background-color: #e0e0e0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.tag-button {
+  background: none;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.tag-button:hover {
+  color: red;
+}
+
+  .second-title-page {
+    color: #642CA9;
+    margin: 10px;
+    font-size: 20px;
+  }
+
+  /* Adjust the width of the titles */
+  .input-container h1:nth-child(1) {
+    width: 100px; /* Adjust as needed */
+  }
+  
+  .input-container h1:nth-child(2) {
+    width: 100px; /* Adjust as needed */
+  }
+  
+  .input-container h1:nth-child(3) {
+    width: 100px; /* Adjust as needed */
+  }
+  
+  .input-container h1:nth-child(4) {
+    width: 100px; /* Adjust as needed */
+  }

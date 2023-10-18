@@ -1,0 +1,18 @@
+/* Estilo para el botón en pantallas más pequeñas */
+.btns {
+    background-color: #FF36AB; /* Fondo rosado similar al de tus filtros */
+    color: white; /* Texto blanco */
+    border: none;
+    border-radius: 20px; /* Bordes redondos */
+    padding: 10px; /* Espaciado interno del botón */
+    cursor: pointer;
+    font-size: 16px; /* Tamaño de fuente */
+    transition: background-color 0.3s, color 0.3s; /* Transición suave */
+    margin-left:10px;
+  }
+  
+  /* Estilo al pasar el cursor sobre el botón */
+  .btns:hover {
+    background-color: #FF1493; /* Cambia el color de fondo al pasar el cursor */
+  }
+  

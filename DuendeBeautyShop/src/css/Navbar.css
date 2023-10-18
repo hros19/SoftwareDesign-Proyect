@@ -1,0 +1,167 @@
+nav {
+	background: #b195d3;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	position: relative;
+  }
+  
+  .logo {
+	width: 400px;
+	font-style: italic;
+	color: white;
+	font-size:20px;
+  }
+  
+  .icons-menu-users {
+	color: #FF36C7;
+	font-size: 30px;
+	padding-right: 5px;
+  }
+  
+  .user-pic {
+	width: 40px;
+	border-radius: 50%;
+	cursor: pointer;
+	margin-left: 30px;
+  }
+  
+  .mobile-menu-profile {
+	width: 60px;
+	border-radius: 50%;
+	cursor: pointer;
+  }
+  
+  nav ul {
+	width: 100%;
+	text-align: right;
+  }
+  
+  nav ul li {
+	display: inline-block;
+	list-style: none;
+	margin: 10px 20px;
+  }
+  
+  nav ul li a {
+	color: white;
+	text-decoration: none;
+  }
+  
+  nav ul li a:hover {
+	color: #642ca9;
+  }
+  
+  .sub-menu-wrap {
+	position: absolute;
+	top: 100%;
+	right: 10%;
+	width: 320px;
+	max-height: 0px;
+	overflow: hidden;
+	transition: max-height 0.5s;
+  }
+  
+  .sub-menu-wrap.open-menu {
+	max-height: 400px;
+  }
+  
+  .sub-menu {
+	background: white;
+	padding: 20px;
+	margin: 10px;	
+  }
+  
+  .user-info {
+	display: flex;
+	color: white;
+	align-items: center;
+  }
+  
+  .user-info h3 {
+	font-weight: 700;
+  }
+  
+  .user-info img {
+	width: 45px;
+	height: 40px;
+	border-radius: 50%;
+	margin-right: 15px;
+  }
+  
+  .sub-menu-link {
+	display: flex;
+	align-items: center;
+	text-decoration: none;
+  }
+  
+  .sub-menu-link p {
+	width: 100%;
+  }
+  
+  .sub-menu-link:hover p {
+	font-weight: 600;
+  }
+  
+  .mobile-menu-icon {
+	cursor: pointer;
+	display: none;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 25px;
+  }
+  
+  .bar {
+	width: 25px;
+	height: 3px;
+	background-color: white;
+	transition: 0.4s;
+  }
+  
+  .open .bar:nth-child(1) {
+	transform: rotate(-45deg) translate(-5px, 6px);
+  }
+  
+  .open .bar:nth-child(2) {
+	opacity: 0;
+  }
+  
+  .open .bar:nth-child(3) {
+	transform: rotate(45deg) translate(-5px, -6px);
+  }
+  
+  @media (max-width: 879px) {
+	.nav-links {
+	  display: none;
+	  flex-direction: column;
+	  position: absolute;
+	  top: 47px;
+	  left: 0;
+	  background: #642CA9;
+	  width: 100%;
+	}
+  
+	.nav-links.open-menu {
+	  display: flex;
+	}
+  
+	.mobile-menu-icon {
+	  display: flex;
+	}
+  
+	.user-pic {
+	  display: none;
+	}
+  
+	.mobile-menu-profile {
+	  display: block;
+	  margin-left: 0;
+	}
+  }
+  
+  
+  
+  
+  
+  
